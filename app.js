@@ -1,5 +1,3 @@
-// console.log("script conectado");
-
 // Mapa de sustitución para encriptar
 const mapaSustitucionEncriptar = {
     'a': 'd',
@@ -69,21 +67,16 @@ const mensajeAlerta = document.querySelector(".ningun-mensaje");
 const imgMensaje = document.getElementById("imgMensaje");
 const copiarMensaje = document.getElementById("btnCopiar");
 
-
-// console.log(mensajeEncriptado)
-// console.log(mensajeAlerta);
-
 // Función para encriptar texto
 const encriptar = (texto, mapa) => {
-
-    const caracteresValidos = /^[a-z\s!?¡¿]*$/;//expresion regular 
+    const caracteresValidos = /^[a-z\s!?¡¿]*$/; //expresion regular 
     if (!caracteresValidos.test(texto)) {
         // Mostrar una notificación de error utilizando SweetAlert
         Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "¡Solo se permiten letras minúsculas y sin acentos!",
-        }); 
+        });
         return; // Salir de la función si se encuentran caracteres inválidos
     }
     texto = texto.toLowerCase();
@@ -97,11 +90,10 @@ const encriptar = (texto, mapa) => {
         const caracterEncriptado = mapa[caracterOriginal] || caracterOriginal; // Si el carácter no está en el mapa, se deja sin encriptar
         textoEncriptado += caracterEncriptado;
     }
-    console.log(textoEncriptado);
     return textoEncriptado;
 };
 
-//Función para pintar el texto encriptado
+// Función para pintar el texto encriptado
 const pintarTexto = (textoEncriptado) => {
 
     if (textoEncriptado.trim()) {
@@ -120,11 +112,7 @@ const pintarTexto = (textoEncriptado) => {
         mensajeEncriptado.style.fontSize = '16px';
         copiarMensaje.style.display = 'none';
         mensajeDesencriptar.style.justifyContent = 'center';
-
-
-    } return;
-
-
+    }
 };
 
 // Función para desencriptar texto
@@ -141,7 +129,6 @@ const desencriptar = (texto, mapa) => {
         const caracterDesencriptado = mapa[caracterOriginal] || caracterOriginal; // Si el carácter no está en el mapa, se deja sin desencriptar
         textoDesencriptado += caracterDesencriptado;
     }
-    console.log(textoDesencriptado);
     return textoDesencriptado;
 };
 
@@ -150,37 +137,30 @@ const copiarTexto = (texto) => {
     // Intenta copiar el texto al portapapeles utilizando el API del navegador
     navigator.clipboard.writeText(texto)
         .then(() => {
-            console.log("Texto copiado al portapapeles:", texto);
             copiarMensaje.textContent = "mensaje copiado";
             setTimeout(() => {
                 copiarMensaje.textContent = "copiar mensaje";
             }, 1500); // 1500 milisegundos = 1.5 segundos
-            
+
             Swal.fire({
                 position: "center",
                 icon: "success",
                 title: "mensaje copiado",
                 showConfirmButton: false,
                 timer: 1500
-              });
-              return;
-
+            });
+            return;
         })
         .catch((error) => {
             console.error("Error al copiar el texto:", error);
-
         });
 };
 
 addEventListener("click", (e) => {
-    console.log(e.target.className);
-
     const contenidoTexto = textArea.value;
     const texto = mensajeEncriptado.textContent;
 
     if (e.target.id === "btnEncriptar") {
-        // console.log("click a boton encriptar");
-        // console.log({ contenidoTexto });
         const btnDesencriptar = document.getElementById("btnDesencriptar");
         const textoEncriptado = encriptar(contenidoTexto, mapaSustitucionEncriptar);
         pintarTexto(textoEncriptado);
@@ -189,8 +169,6 @@ addEventListener("click", (e) => {
     }
 
     if (e.target.id === "btnDesencriptar") {
-        console.log("click al boton de desencriptar");
-        const contenidoTexto = textArea.value;
         const btnEncriptar = document.getElementById("btnEncriptar");
         const textoDesencriptado = desencriptar(contenidoTexto, mapaSustitucionDesencriptar);
         pintarTexto(textoDesencriptado);
@@ -199,9 +177,5 @@ addEventListener("click", (e) => {
     }
 
     // Copiar el texto al portapapeles
-    if (e.target.id === "btnCopiar") {
-        // console.log("click al boton copiar");
-        copiarTexto(texto);
-    }
+    if (e.target.id ===
 
-});
